@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useAuthStore } from '@/stores/auth'
+import snakecaseKeys from 'snakecase-keys'
 
 // Cria uma instância do Axios com a URL base do Gateway
 const apiClient = axios.create({
@@ -7,6 +8,20 @@ const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  transformRequest: [
+    (data) => {
+      // Se houver dados para enviar...
+      if (data) {
+        // ...converte todas as chaves para snake_case
+        const snakeCasedData = snakecaseKeys(data, { deep: true })
+        // Retorna os dados como uma string JSON, que é o que o Axios fará a seguir
+        return JSON.stringify(snakeCasedData)
+      }
+      return data
+    },
+    // Mantemos os transformadores padrão do Axios que são executados depois do nosso
+    ...axios.defaults.transformRequest,
+  ],
 })
 
 // Este é o Interceptor. Ele "intercepta" cada requisição antes de ela ser enviada.
