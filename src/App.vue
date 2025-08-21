@@ -12,7 +12,7 @@ function handleLogout() {
 
 // Verifica se o utilizador tem a role de administrador
 const isAdmin = () => {
-  return authStore.user?.roles?.some((role) => role.name === 'ROLE_ADMIN')
+  return authStore.user?.role?.some((r) => r.name === 'ROLE_ADMIN')
 }
 </script>
 

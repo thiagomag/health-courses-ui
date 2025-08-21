@@ -47,7 +47,7 @@ router.beforeEach((to, from, next) => {
     return next({ name: 'login' })
   }
 
-  const isAdmin = authStore.user?.roles?.some((role) => role.name === 'ROLE_ADMIN')
+  const isAdmin = authStore.user?.role?.some((r) => r.name === 'ROLE_ADMIN')
 
   if (requiresAdmin && !isAdmin) {
     // Se a rota exige admin e o utilizador não o é, redireciona.
