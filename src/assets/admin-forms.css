@@ -1,0 +1,49 @@
+/* Estilos partilhados para os formulários de admin */
+.admin-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 700px;
+}
+.form-group {
+  margin-bottom: 1.5rem;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+.form-group-checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.form-group-checkbox input {
+  margin-right: 0.5rem;
+}
+.submit-btn {
+  background-color: #27ae60;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.success-message {
+  color: #27ae60;
+  margin-top: 1rem;
+}
+.error-message {
+  color: #e74c3c;
+  margin-top: 1rem;
+}
