@@ -12,7 +12,7 @@ function handleLogout() {
 
 // Verifica se o utilizador tem a role de administrador
 const isAdmin = () => {
-  return authStore.user?.roles?.includes('ROLE_ADMIN')
+  return authStore.user?.roles?.some((role) => role.name === 'ROLE_ADMIN')
 }
 </script>
 
@@ -36,50 +36,4 @@ const isAdmin = () => {
   </main>
 </template>
 
-<style>
-/* ... (estilos existentes) ... */
-.main-header {
-  background-color: white;
-  padding: 0 2rem;
-  height: 60px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-}
-
-.header-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-}
-
-.main-nav a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 600;
-  margin-right: 1.5rem;
-  transition: color 0.2s ease;
-}
-
-.main-nav a:hover,
-.main-nav a.router-link-exact-active {
-  color: #4a90e2;
-}
-
-.user-actions {
-  display: flex;
-  align-items: center;
-}
-
-.welcome-message {
-  font-weight: 500;
-  margin-right: 1.5rem;
-}
-/* ... (resto dos estilos) ... */
-</style>
+<style></style>

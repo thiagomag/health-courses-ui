@@ -1,6 +1,6 @@
-/* Estilos Globais e Reset */
-
-/* Define uma fonte mais moderna para toda a aplicação */
+/* ==========================================================================
+   1. ESTILOS GLOBAIS E RESET
+   ========================================================================== */
 body {
   margin: 0;
   font-family:
@@ -11,12 +11,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Garante que o layout principal ocupe toda a altura */
 #app {
   min-height: 100vh;
 }
 
-/* Remove a decoração de links e define uma cor padrão */
 a {
   text-decoration: none;
   color: #4a90e2;
@@ -25,4 +23,129 @@ a {
 
 a:hover {
   color: #357abd;
+}
+
+/* ==========================================================================
+   2. LAYOUT PRINCIPAL (DO App.vue)
+   ========================================================================== */
+main {
+  padding-top: 80px;
+}
+
+.main-header {
+  background-color: white;
+  padding: 0 2rem;
+  height: 60px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.main-nav a {
+  color: #333;
+  font-weight: 600;
+  margin-right: 1.5rem;
+}
+
+.main-nav a.router-link-exact-active {
+  color: #4a90e2;
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+}
+
+.welcome-message {
+  font-weight: 500;
+  margin-right: 1.5rem;
+}
+
+.logout-button {
+  border: none;
+  background-color: #e74c3c;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: #c0392b;
+}
+
+/* ==========================================================================
+   3. ESTILOS DOS FORMULÁRIOS DE ADMIN (DO admin-forms.css)
+   ========================================================================== */
+.admin-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 700px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+}
+.form-group {
+  margin-bottom: 1.5rem;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+.form-group-checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.form-group-checkbox input {
+  margin-right: 0.5rem;
+  width: auto;
+}
+.submit-btn {
+  background-color: #27ae60;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+.submit-btn:hover {
+  background-color: #229954;
+}
+.success-message {
+  color: #27ae60;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+.error-message {
+  color: #e74c3c;
+  margin-top: 1rem;
+  font-weight: 500;
 }

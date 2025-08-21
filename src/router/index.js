@@ -1,15 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
-// Layouts
+// ... (imports das views e layouts)
 import AdminLayout from '@/layouts/AdminLayout.vue'
-
-// Views
 import LoginView from '@/views/LoginView.vue'
 import CoursesView from '@/views/CoursesView.vue'
 //import CourseDetailView from '@/views/CourseDetailView.vue'
-
-// Admin Views
 import AdminDashboardView from '@/views/admin/AdminDashboardView.vue'
 import CreateCourseView from '@/views/admin/CreateCourseView.vue'
 import CreateModuleView from '@/views/admin/CreateModuleView.vue'
@@ -18,10 +14,9 @@ import CreateLessonView from '@/views/admin/CreateLessonView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    // ... (as suas rotas existentes)
     { path: '/login', name: 'login', component: LoginView },
     { path: '/', redirect: '/cursos' },
-
-    // Rotas de Aluno
     { path: '/cursos', name: 'courses', component: CoursesView, meta: { requiresAuth: true } },
     //    {
     //      path: '/cursos/:id',
@@ -29,8 +24,6 @@ const router = createRouter({
     //      component: CourseDetailView,
     //      meta: { requiresAuth: true },
     //    },
-
-    // Rotas de Admin
     {
       path: '/admin',
       component: AdminLayout,
@@ -54,8 +47,10 @@ router.beforeEach((to, from, next) => {
     return next({ name: 'login' })
   }
 
-  if (requiresAdmin && !authStore.user?.roles?.includes('ROLE_ADMIN')) {
-    // Se o utilizador não for admin, redireciona para a página de cursos
+  const isAdmin = authStore.user?.roles?.some((role) => role.name === 'ROLE_ADMIN')
+
+  if (requiresAdmin && !isAdmin) {
+    // Se a rota exige admin e o utilizador não o é, redireciona.
     return next({ name: 'courses' })
   }
 
