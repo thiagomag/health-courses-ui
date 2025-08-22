@@ -21,6 +21,11 @@ import AdminLessonsListView from '@/views/admin/lists/AdminLessonsListView.vue'
 import EditCourseView from '@/views/admin/edit/EditCourseView.vue'
 import EditModuleView from '@/views/admin/edit/EditModuleView.vue'
 import EditLessonView from '@/views/admin/edit/EditLessonView.vue'
+// Views de Detalhes
+import CourseDetailView from '@/views/student/CourseDetailView.vue'
+import ModuleDetailView from '@/views/student/ModuleDetailView.vue'
+import LessonDetailView from '@/views/student/LessonDetailView.vue'
+import CourseWelcomeView from '@/views/student/CourseWelcomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,6 +33,27 @@ const router = createRouter({
     { path: '/login', name: 'login', component: LoginView },
     { path: '/', redirect: '/cursos' },
     { path: '/cursos', name: 'courses', component: CoursesView, meta: { requiresAuth: true } },
+    {
+      path: '/cursos/:courseId',
+      component: CourseDetailView, // O componente PAI que terá o menu de módulos
+      meta: { requiresAuth: true },
+      children: [
+        // Rota inicial quando se entra num curso
+        { path: '', name: 'course-welcome', component: CourseWelcomeView },
+        // Rota para exibir as lições de um módulo específico
+        {
+          path: 'modulos/:moduleId',
+          name: 'module-detail',
+          component: ModuleDetailView,
+        },
+        // Rota para exibir o vídeo de uma lição específica
+        {
+          path: 'modulos/:moduleId/licoes/:lessonId',
+          name: 'lesson-detail',
+          component: LessonDetailView,
+        },
+      ],
+    },
     {
       path: '/admin',
       component: AdminLayout,

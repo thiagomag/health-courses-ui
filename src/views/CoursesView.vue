@@ -33,13 +33,20 @@ onMounted(async () => {
       <p>{{ errorMessage }}</p>
     </div>
     <div v-else-if="courses.length > 0" class="courses-grid">
-      <div v-for="course in courses" :key="course.id" class="course-card">
-        <div class="card-content">
-          <h2 class="course-title">{{ course.name }}</h2>
-          <p class="course-category">{{ course.category }}</p>
-          <p class="course-description">{{ course.description }}</p>
+      <router-link
+        v-for="course in courses"
+        :key="course.id"
+        :to="`/cursos/${course.id}`"
+        class="course-card-link"
+      >
+        <div class="course-card">
+          <div class="card-content">
+            <h2 class="course-title">{{ course.name }}</h2>
+            <p class="course-category">{{ course.category }}</p>
+            <p class="course-description">{{ course.description }}</p>
+          </div>
         </div>
-      </div>
+      </router-link>
     </div>
     <div v-else class="no-courses-message">
       <p>Nenhum curso encontrado no momento.</p>
