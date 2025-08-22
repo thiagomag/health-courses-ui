@@ -48,6 +48,7 @@ onMounted(fetchCourses)
         <tr>
           <th>ID</th>
           <th>Nome</th>
+          <th>Descrição</th>
           <th>Categoria</th>
           <th>Ativo</th>
           <th>Ações</th>
@@ -57,6 +58,7 @@ onMounted(fetchCourses)
         <tr v-for="course in courses" :key="course.id">
           <td>{{ course.id }}</td>
           <td>{{ course.name }}</td>
+          <td>{{ course.description }}</td>
           <td>{{ course.category }}</td>
           <td>{{ course.active ? 'Sim' : 'Não' }}</td>
           <td class="actions">
