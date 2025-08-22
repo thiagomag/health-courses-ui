@@ -27,24 +27,30 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-if="isLoading">A carregar...</div>
+  <div v-if="isLoading" class="loading-container">A carregar...</div>
   <div v-else-if="course" class="course-player-layout">
     <aside class="course-sidebar">
-      <nav>
+      <div class="sidebar-header">
+        <RouterLink to="/cursos" class="back-link">← Voltar para Cursos</RouterLink>
         <h2 class="course-title">{{ course.name }}</h2>
+        <p class="course-description-sidebar">{{ course.description }}</p>
+      </div>
+      <nav class="module-nav">
         <ul>
           <li v-for="module in sortedModules" :key="module.id" class="module-item">
             <RouterLink :to="`/cursos/${courseId}/modulos/${module.id}`">
-              {{ module.title }}
+              <span class="module-title">{{ module.title }}</span>
             </RouterLink>
           </li>
         </ul>
       </nav>
     </aside>
     <main class="course-content">
-      <!-- As páginas de lições e o player serão renderizados aqui -->
       <RouterView :course="course" />
     </main>
+  </div>
+  <div v-else class="error-container">
+    <p>Curso não encontrado.</p>
   </div>
 </template>
 
@@ -52,42 +58,92 @@ onMounted(async () => {
 .course-player-layout {
   display: flex;
   height: calc(100vh - 60px); /* Ocupa a altura total menos o header */
+  background-color: #f7f8fc;
 }
+
 .course-sidebar {
-  width: 300px;
-  background-color: #fff;
+  width: 320px;
+  background-color: #ffffff;
   border-right: 1px solid #e0e0e0;
-  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
 }
-.course-title {
-  font-size: 1.5rem;
-  margin-top: 0;
-  margin-bottom: 1.5rem;
+
+.sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
 }
-.course-sidebar ul {
+
+.back-link {
+  font-size: 0.9rem;
+  color: #4a90e2;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.course-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  color: #2c3e50;
+}
+
+.course-description-sidebar {
+  font-size: 0.9rem;
+  color: #777;
+  line-height: 1.5;
+}
+
+.module-nav {
+  padding: 1rem;
+  flex-grow: 1;
+}
+
+.module-nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
+
 .module-item a {
   display: block;
-  padding: 0.8rem 1rem;
+  padding: 1rem 1.2rem;
   text-decoration: none;
   color: #333;
-  border-radius: 6px;
-  font-weight: 500;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+  border: 1px solid transparent;
 }
+
 .module-item a:hover {
-  background-color: #f4f4f4;
+  background-color: #f4f6f8;
 }
+
 .module-item a.router-link-exact-active {
-  background-color: #4a90e2;
-  color: white;
+  background-color: #e9f2fc;
+  color: #357abd;
+  border-color: #4a90e2;
 }
+
 .course-content {
   flex-grow: 1;
-  padding: 2rem;
+  padding: 2.5rem;
   overflow-y: auto;
+}
+
+.loading-container,
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px);
+  font-size: 1.2rem;
+  color: #777;
 }
 </style>
