@@ -57,14 +57,15 @@ onMounted(async () => {
 <style scoped>
 .course-player-layout {
   display: flex;
-  height: calc(100vh - 60px); /* Ocupa a altura total menos o header */
-  background-color: #f7f8fc;
+  height: calc(100vh - 60px);
 }
 
 .course-sidebar {
   width: 320px;
-  background-color: #ffffff;
-  border-right: 1px solid #e0e0e0;
+  /* Mesma cor do header para consistência */
+  background-color: #2c3e50;
+  color: #ecf0f1; /* Cor de texto base clara */
+  border-right: 1px solid #46627f;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -72,12 +73,12 @@ onMounted(async () => {
 
 .sidebar-header {
   padding: 1.5rem;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #46627f;
 }
 
 .back-link {
   font-size: 0.9rem;
-  color: #4a90e2;
+  color: #bdc3c7;
   text-decoration: none;
   margin-bottom: 1rem;
   display: inline-block;
@@ -87,12 +88,13 @@ onMounted(async () => {
   font-size: 1.6rem;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
-  color: #2c3e50;
+  /* Cor do título principal branca */
+  color: #ffffff;
 }
 
 .course-description-sidebar {
   font-size: 0.9rem;
-  color: #777;
+  color: #bdc3c7;
   line-height: 1.5;
 }
 
@@ -111,7 +113,8 @@ onMounted(async () => {
   display: block;
   padding: 1rem 1.2rem;
   text-decoration: none;
-  color: #333;
+  /* Cor dos links dos módulos */
+  color: #bdc3c7;
   border-radius: 8px;
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -122,19 +125,22 @@ onMounted(async () => {
 }
 
 .module-item a:hover {
-  background-color: #f4f6f8;
+  /* Efeito de hover mais escuro */
+  background-color: #34495e;
+  color: #ffffff;
 }
 
 .module-item a.router-link-exact-active {
-  background-color: #e9f2fc;
-  color: #357abd;
-  border-color: #4a90e2;
+  /* Destaque do módulo ativo */
+  background-color: #4a90e2;
+  color: white;
 }
 
 .course-content {
   flex-grow: 1;
   padding: 2.5rem;
   overflow-y: auto;
+  background-color: #f0f4f8; /* Mantém o fundo do conteúdo principal claro */
 }
 
 .loading-container,
