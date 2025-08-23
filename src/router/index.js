@@ -6,6 +6,7 @@ import AdminLayout from '@/layouts/AdminLayout.vue'
 
 // Views
 import LoginView from '@/views/LoginView.vue'
+import RegisterView from '@/views/RegisterView.vue'
 import CoursesView from '@/views/CoursesView.vue'
 
 // Admin Views
@@ -31,6 +32,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: '/login', name: 'login', component: LoginView },
+    { path: '/register', name: 'register', component: RegisterView }, // Adicione a nova rota
     { path: '/', redirect: '/cursos' },
     { path: '/cursos', name: 'courses', component: CoursesView, meta: { requiresAuth: true } },
     {

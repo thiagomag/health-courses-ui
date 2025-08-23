@@ -56,6 +56,9 @@ async function handleLogin() {
 
         <button type="submit" class="login-button">Entrar</button>
       </form>
+      <p class="register-link">
+        Não tem uma conta? <RouterLink to="/register">Crie uma aqui</RouterLink>
+      </p>
     </div>
   </div>
 </template>
@@ -143,5 +146,10 @@ h1 {
   padding: 0.8rem;
   border-radius: 8px;
   margin-bottom: 1.5rem;
+}
+
+.register-link {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
 }
 </style>

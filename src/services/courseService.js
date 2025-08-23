@@ -26,3 +26,6 @@ export const updateLesson = (id, lessonData) =>
 export const deleteCourse = (id) => apiClient.delete(`/course-service/courses/${id}`)
 export const deleteModule = (id) => apiClient.delete(`/course-service/modules/${id}`)
 export const deleteLesson = (id) => apiClient.delete(`/course-service/lessons/${id}`)
+
+// --- Função de adição de usuário ===
+export const createUser = (userData) => apiClient.post('/auth-service/users', userData)
