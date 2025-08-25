@@ -1,11 +1,13 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useToast } from 'vue-toastification'
 import { getCourseById, updateCourse } from '@/services/courseService'
 import '@/assets/admin-forms.css'
 
 const route = useRoute()
 const router = useRouter()
+const toast = useToast()
 const courseId = route.params.id
 
 // Inicializa o ref do curso como um objeto vazio para evitar erros de template
@@ -13,6 +15,7 @@ const course = ref({})
 const successMessage = ref('')
 const errorMessage = ref('')
 const isLoading = ref(true)
+const isSubmitting = ref(false)
 
 // Lista de categorias para o dropdown
 const categories = [
@@ -48,6 +51,8 @@ onMounted(async () => {
 
 // Função chamada ao submeter o formulário
 async function handleSubmit() {
+  if (isSubmitting.value) return
+  isSubmitting.value = true
   successMessage.value = ''
   errorMessage.value = ''
   try {
@@ -59,6 +64,8 @@ async function handleSubmit() {
   } catch (error) {
     errorMessage.value = 'Erro ao atualizar o curso. Tente novamente.'
     console.error(error)
+  } finally {
+    isSubmitting.value = false
   }
 }
 </script>
@@ -71,6 +78,7 @@ async function handleSubmit() {
     <div v-if="isLoading">A carregar dados do curso...</div>
 
     <!-- Formulário de edição, só é mostrado após os dados serem carregados -->
+    <div v-if="isLoading">A carregar dados do curso...</div>
     <form v-else-if="course" @submit.prevent="handleSubmit" class="admin-form">
       <div class="form-group">
         <label for="name">Nome do Curso</label>
@@ -95,7 +103,9 @@ async function handleSubmit() {
         <label for="active">Curso Ativo</label>
       </div>
 
-      <button type="submit" class="submit-btn">Salvar Alterações</button>
+      <button type="submit" class="submit-btn" :disabled="isSubmitting">
+        {{ isSubmitting ? 'A guardar...' : 'Salvar Alterações' }}
+      </button>
 
       <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
       <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
