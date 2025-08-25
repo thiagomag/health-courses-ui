@@ -1,19 +1,33 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { RouterLink } from 'vue-router'
-import { getAllModules, deleteModule } from '@/services/courseService'
+import { getAllModules, deleteModule, getAllCourses } from '@/services/courseService'
 
 import '@/assets/admin-list-forms.css'
 
 const modules = ref([])
+const courses = ref([])
 const isLoading = ref(true)
+
+const courseMap = computed(() => {
+  const map = {}
+  for (const course of courses.value) {
+    map[course.id] = course.name
+  }
+  return map
+})
+
+function getCourseName(courseId) {
+  return courseMap.value[courseId] || 'Curso não encontrado'
+}
 
 async function fetchModules() {
   try {
-    const response = await getAllModules()
-    modules.value = response.data
+    const [modulesResponse, coursesResponse] = await Promise.all([getAllModules(), getAllCourses()])
+    modules.value = modulesResponse.data
+    courses.value = coursesResponse.data
   } catch (error) {
-    console.error('Erro ao buscar módulos:', error)
+    console.error('Erro ao buscar dados:', error)
   } finally {
     isLoading.value = false
   }
@@ -47,7 +61,8 @@ onMounted(fetchModules)
       <thead>
         <tr>
           <th>ID</th>
-          <th>Título</th>
+          <th>Título do Módulo</th>
+          <th>Curso Associado</th>
           <th>Descrição</th>
           <th>Ações</th>
         </tr>
@@ -56,6 +71,7 @@ onMounted(fetchModules)
         <tr v-for="module in modules" :key="module.id">
           <td>{{ module.id }}</td>
           <td>{{ module.title }}</td>
+          <td>{{ getCourseName(module.courseId) }}</td>
           <td>{{ module.description }}</td>
           <td class="actions">
             <RouterLink :to="`/admin/modulos/editar/${module.id}`" class="btn-edit"
